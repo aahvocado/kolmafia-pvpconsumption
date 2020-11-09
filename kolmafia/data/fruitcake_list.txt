@@ -1,0 +1,71 @@
+1	Banana
+2	Blackberry
+3	Bunch of square grapes
+4	Cactus fruit
+5	Cherry
+6	Cranberries
+7	Desiccated apricot
+8	Exotic jungle fruit
+9	Gr8ps
+10	Grapefruit
+11	Grapes
+12	Handful of nuts and berries
+13	Honey-dew
+14	Hot date
+15	Juniper berries
+16	Kiwi
+17	Kumquat
+18	Laser-broiled pear
+19	Lemon
+20	Lime
+21	Mineapple
+22	Mulberry
+23	Orange
+24	Papaya
+25	Peach
+26	Pear
+27	Pixel banana
+28	Pixel lemon
+29	Plum
+30	Raisin
+31	Raspberry
+32	Sea blueberry
+33	Sea honeydew
+34	Sea lychee
+35	Sea persimmon
+36	Sea tangelo
+37	Snow berries
+38	Strawberry
+39	Tangerine
+40	Unidentifiable dried fruit
+41	Vinegar-soaked lemon slice
+42	Ancient unspeakable fruitcake
+43	Angel-food cake
+44	Babycakes
+45	Birthday party jellybean cheesecake
+46	Black forest cake
+47	Blue velvet cake
+48	Candy carrot cake
+49	Carrot cake
+50	Congratulatory cake
+51	Cupcake-in-a-cup
+52	Deluxe layer cake
+53	Devil's-food cake
+54	FDKOL hotcakes
+55	Fruitcake
+56	Half double fruitcake
+57	Happy Birthday, Claude! cake
+58	Lava cake
+59	Mugcake
+60	Nanite-infested fruitcake
+61	Personalized birthday cake
+62	Piece of wedding cake
+63	Red velvet cake
+64	Sheet cake
+65	Sponge cake
+66	Standard-issue cupcake
+67	Three-tiered wedding cake
+68	Ultra-deluxe cupcake
+69	Urinal cake
+70	pineapple slab
+71	salt plum
