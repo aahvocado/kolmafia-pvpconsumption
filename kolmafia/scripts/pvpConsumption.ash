@@ -1,12 +1,16 @@
 /*
-  dexConsumption.ash [v1.2]
+  pvpConsumption.ash [v1.3]
     a simple "did I consume this before?" script that grew
     into also checking for uneaten food for the "Balance Diet" pvp mini
 
   todo: handle non-items like hot dog stand, sushi, snootee, etc
  */
+script "pvpConsumption.ash";
 
 // -- start customizable variables
+// gotta be maintained :(
+string pvp_date_filename = 'pvpSeason52_dates.txt';
+string fruitcakelist_filename = 'fruitcake_list.txt';
 
 // something seems inconsistent about how kolmafia renders html,
 // so if it is formatting it weirdly, you can toggle this
@@ -23,10 +27,6 @@ int[string] EXCLUDED_ITEM_NAMES = {
   "Pirate Fork": 1,
   "Schrödinger's thermoses": 1,
 };
-
-string pvp_date_filename = 'pvpSeason52_dates.txt';
-string fruitcakelist_filename = 'fruitcake_list.txt';
-
 // -- end customizable variables
 
 string[int] PVP_DATES;
@@ -292,15 +292,59 @@ void print_owned_fruitcakes_list() {
   print_html(html);
 }
 void abort_help() {
-  abort('Give me "[inventory/inv/storage/stor] (pvp) (plain/color)". Eg: "dexConsumption inv pvp" or "dexConsumption stor".');
+  print('-- Help --', 'red');
+  print('Give me "[inventory/inv/storage/stor] (any/pvp) (plain/color)"');
+  print('');
+  print('example: "pvpconsumption stor" will print out unique foods in hagnk\'s storage that have not been consumed before.');
+  print('example: "pvpconsumption inv any plain" will print any unique foods you have not consumed before in plaintext.');
+  print('example: "pvpconsumption" by default is equivalent to "pvpconsumption inv pvp color"');
+  print('');
+  print('Bonus feature: "pvpconsumption fruitcake" to list out items in your inventory that are valid fruit/cakes.');
+  print('');
+  print('Bug: if the CLI seems to clear out after running use PLAIN_PRINT=true setting. Not sure why it does that.');
+  abort();
 }
 void main(string arguments) {
-  if (arguments == '') {
+  if (arguments == 'help') {
     abort_help();
   }
 
   string[int] argParts = arguments.split_string(' ');
-  string checkSource = argParts[0];
+  boolean isForPVP = true;
+  string checkSource = 'inventory';
+
+  if (argParts[0] != '') {
+    checkSource = argParts[0];
+  }
+
+  if (argParts[0] == 'fruitcake') {
+    print_owned_fruitcakes_list();
+    return;
+  }
+
+  // handle custom args
+  if (argParts.count() >= 2) {
+    if (argParts[1] == 'any') {
+      isForPVP = false;
+    } else if (argParts[1] == 'pvp') {
+      isForPVP = true;
+    }
+
+    if (argParts[1] == 'plain') {
+      PLAIN_PRINT = true;
+    } else if (argParts[1] == 'color') {
+      PLAIN_PRINT = false;
+    }
+  }
+
+  if (argParts.count() >= 3) {
+    if (argParts[2] == 'plain') {
+      PLAIN_PRINT = true;
+    } else if (argParts[2] == 'color') {
+      PLAIN_PRINT = false;
+    }
+  }
+
   if (checkSource == 'inv') {
     checkSource = 'inventory';
   } else if (checkSource == 'stor') {
@@ -311,7 +355,6 @@ void main(string arguments) {
     abort_help();
   }
 
-  boolean isForPVP = argParts.count() >= 2;
   if (isForPVP) {
     print('Checking ' + checkSource + ' for foods you have not consumed for pvp season 52...', 'olive');
   } else {
@@ -333,13 +376,8 @@ void main(string arguments) {
     sourceList = get_storage();
   }
 
-  // custom override of the display style
-  if (argParts.count() >= 3) {
-    if (argParts[2] == 'plain') {
-      PLAIN_PRINT = true;
-    } else if (argParts[2] == 'color') {
-      PLAIN_PRINT = false;
-    }
+  if (sourceList.count() <= 0) {
+    abort('Your ' + checkSource + ' is empty.');
   }
 
   // display style
