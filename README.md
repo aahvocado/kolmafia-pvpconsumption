@@ -27,4 +27,5 @@ There are some things you can configure in the script itself.
 ## 🍓🍰
 `pvpconsumption fruitcake`
 
+## Screenshot
 ![Screenshot of command ran in CLI](./screenshot.png)
